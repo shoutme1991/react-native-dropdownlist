@@ -22,6 +22,7 @@ describe('Example', () => {
     items.map(async(elem, i) => {
       await element(by.id(`DropListItem_${i}`)).tap();
       await expect(element(by.text(elem))).toBeVisible();
+      await expect(element(by.id(DropList))).toBeNotVisible();
     })
   });
 

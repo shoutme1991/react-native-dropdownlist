@@ -12,7 +12,7 @@ export default class App extends Component<Props> {
 
     return (
       <View style={styles.container}>
-        <DropDownList testID={'DropListUse1'} items={items} dafaultLabel={dafaultLabel} index={index}/>
+        <DropDownList testID={'DropListUse1'} items={items} dafaultLabel={dafaultLabel} />
       </View>
     );
   }
