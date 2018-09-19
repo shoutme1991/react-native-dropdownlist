@@ -6,13 +6,18 @@ import DropDownList from './DropDownList';
 type Props = {};
 export default class App extends Component<Props> {
   render() {
-    const items = ['0%', '25%', '50%', '75%', '100%'];
-    const dafaultLabel = '0%';
-    const index = -1;
+    const items = ['0%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%'];
+    const itemHeightSize = 10;
+    const lineStroke = 2;
 
     return (
       <View style={styles.container}>
-        <DropDownList testID={'DropListUse1'} items={items} dafaultLabel={dafaultLabel} />
+        <DropDownList
+        testID={'DropListUse1'}
+        items={items}
+        itemHeightSize={itemHeightSize}
+        lineStroke={lineStroke}
+      />
       </View>
     );
   }
@@ -20,9 +25,8 @@ export default class App extends Component<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F9FCFF',
   },
 });
