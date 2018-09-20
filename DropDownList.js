@@ -1,56 +1,108 @@
 import React, {Component} from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, ScrollView } from 'react-native';
+import { Grid, Col, Row, Text } from 'native-base';
+
+const createStyle = lineWidth => StyleSheet.create({
+  constainer: {
+    width: 100,
+    height: 20,
+    paddingTop: 80,
+  },
+  placeholderText: {
+    borderWidth: lineWidth,
+    borderRightWidth: 0,
+    borderColor: '#111111',
+  },
+  placeholderButton: {
+    borderWidth: lineWidth,
+    borderColor: '#111111',
+  },
+  itemContainer: {
+    width: 100,
+    height: 20,
+    borderRightWidth: lineWidth,
+    borderLeftWidth: lineWidth,
+    borderColor: '#111111',
+  },
+});
 
 class DropDownList extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       isExpandDropList: false,
-      currentLabel: '0%',
+      currentLabel: '-',
+      lineStroke: props.lineStroke,
     };
+  }
+
+  removeDupLine = (i, totalSize, lineStoke) => {
+    if (i === totalSize) {
+      return { borderBottomWidth: lineStoke };
+    }
+    return { borderTopWidth: lineStoke };
   }
 
   render() {
-
-    const { items } = this.props;
-
-    selectItem = (elem) => {
-      this.setState({currentLabel: elem});
-      this.setState({isExpandDropList: false});
-    };
-
+    const { items, itemHeightSize } = this.props;
     return (
-    <View>
-      <TouchableOpacity onPress={() => this.setState({isExpandDropList: !this.state.isExpandDropList})} testID={'placeholder'} >
-        <Text testID={'defaultLabel'}>
-          {this.state.currentLabel}
-        </Text>
-      </TouchableOpacity>
-      {
-        this.state.isExpandDropList ?
-          (
-            <View testID={'DropList'}>
-              {items.map((elem, i) =>
-                <TouchableOpacity
-                  onPress={() => {
-                      this.setState({currentLabel: elem});
-                      this.setState({isExpandDropList: false});
+      <View>
+        <Grid style={ createStyle(this.props.lineStroke).constainer }>
+          <Row style={{ height: (itemHeightSize*2)+4 }}>
+            <Col size={2} style={ createStyle(this.props.lineStroke).placeholderText }>
+              <TouchableOpacity
+                onPress={() => this.setState({isExpandDropList: !this.state.isExpandDropList})}
+                testID={'placeholder'}
+              >
+                <Text
+                  testID={'defaultLabel'}
+                  style={{ fontsize: itemHeightSize, color: '#121212' }}
+                >
+                  {this.state.currentLabel}
+                </Text>
+              </TouchableOpacity>
+            </Col>
+            <Col size={1} style={ createStyle(this.props.lineStroke).placeholderButton }>
+              <TouchableOpacity
+                onPress={() => this.setState({isExpandDropList: !this.state.isExpandDropList})}
+                testID={'placeholderDownButton'}
+              >
+                <Text>
+                  v
+                </Text>
+              </TouchableOpacity>
+            </Col>
+          </Row>
+          <Row>
+            {
+              this.state.isExpandDropList ?
+                (
+                  <ScrollView testID={'DropList'}>
+                    {items.map((elem, i) =>
+                      <TouchableOpacity
+                        onPress={() => {
+                          this.setState({currentLabel: elem});
+                          this.setState({isExpandDropList: false});
+                        }
+                        }
+                        testID={`DropListItem_${i}`}>
+                        <View style={[
+                          createStyle(this.props.lineStroke).itemContainer,
+                          { height: (itemHeightSize*2)+4 },
+                          this.removeDupLine(i, items.size - 1, this.props.lineStroke)
+                        ]}>
+                          <Text style={{ fontsize: itemHeightSize }}>{elem}</Text>
+                        </View>
+                      </TouchableOpacity>)
                     }
-                  }
-                  testID={`DropListItem_${i}`}>
-                  <View>
-                      <Text>{elem}</Text>
-                  </View>
-                </TouchableOpacity>)
-              }
-            </View>
-          ) : null
-      }
-    </View>
+                  </ScrollView>
+                ) : null
+            }
+          </Row>
+        </Grid>
+      </View>
     );
   }
 }
-
 
 export default DropDownList;

@@ -10,6 +10,7 @@ describe('Example', () => {
   it('should be touch placeholder', async () => {
     await element(by.id('placeholder')).tap();
     await expect(element(by.id('DropList'))).toBeVisible();
+    await element(by.id('DropList')).scroll(50, 'up');
   });
 
   it('should be exist default item', async () => {
@@ -26,8 +27,16 @@ describe('Example', () => {
     })
   });
 
+  it('should ', function () {
+
+  });
+
   // it('should be exist default item', async () => {
   //   await expect(element(by.id('DropListUse1'))).toBeVisible();
   // });
 
 })
+
+// border 값 파라미터로 받기
+// placeHolder 값 파라미터로 받기
+// 딤처리
