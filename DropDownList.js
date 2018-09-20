@@ -44,14 +44,16 @@ class DropDownList extends Component {
   }
 
   render() {
-    const { items, itemHeightSize } = this.props;
+    const { items, itemShowMax, itemHeightSize, active } = this.props;
     return (
       <View>
         <Grid style={ createStyle(this.props.lineStroke).constainer }>
           <Row style={{ height: (itemHeightSize*2)+4 }}>
-            <Col size={2} style={ createStyle(this.props.lineStroke).placeholderText }>
+            <Col size={2}
+                 style={[ createStyle(this.props.lineStroke).placeholderText, active ? null : { backgroundColor: '#d3d3d3' }]}
+            >
               <TouchableOpacity
-                onPress={() => this.setState({isExpandDropList: !this.state.isExpandDropList})}
+                onPress={() => active ? this.setState({isExpandDropList: !this.state.isExpandDropList}) : null}
                 testID={'placeholder'}
               >
                 <Text
@@ -62,9 +64,9 @@ class DropDownList extends Component {
                 </Text>
               </TouchableOpacity>
             </Col>
-            <Col size={1} style={ createStyle(this.props.lineStroke).placeholderButton }>
+            <Col size={1} style={[ createStyle(this.props.lineStroke).placeholderButton, active ? null : { backgroundColor: '#d3d3d3' }] }>
               <TouchableOpacity
-                onPress={() => this.setState({isExpandDropList: !this.state.isExpandDropList})}
+                onPress={() => active ? this.setState({isExpandDropList: !this.state.isExpandDropList}) : null}
                 testID={'placeholderDownButton'}
               >
                 <Text>
@@ -73,7 +75,7 @@ class DropDownList extends Component {
               </TouchableOpacity>
             </Col>
           </Row>
-          <Row>
+          <Row style={{ height: (itemHeightSize*itemShowMax*2)+10 }}>
             {
               this.state.isExpandDropList ?
                 (

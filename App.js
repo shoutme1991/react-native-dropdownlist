@@ -9,14 +9,18 @@ export default class App extends Component<Props> {
     const items = ['0%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%'];
     const itemHeightSize = 10;
     const lineStroke = 2;
+    const active = false;
+    const itemShowMax = 2;
 
     return (
       <View style={styles.container}>
         <DropDownList
         testID={'DropListUse1'}
         items={items}
+        itemShowMax={itemShowMax}
         itemHeightSize={itemHeightSize}
         lineStroke={lineStroke}
+        active={active}
       />
       </View>
     );
