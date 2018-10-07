@@ -1,27 +1,31 @@
 import React, {Component} from 'react';
-import { StyleSheet, View } from 'react-native';
+import {
+  AppRegistry,
+  StyleSheet,
+  View,
+  TextInput
+} from 'react-native';
+import QRCode from 'react-native-qrcode';
 
-import DropDownList from './DropDownList';
+class App extends Component<Props> {
 
-type Props = {};
-export default class App extends Component<Props> {
+  state = {
+    text: 'http://facebook.github.io/react-native/',
+  };
+
   render() {
-    const items = ['0%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%', '25%', '50%', '75%', '100%'];
-    const itemHeightSize = 10;
-    const lineStroke = 2;
-    const active = false;
-    const itemShowMax = 2;
-
     return (
       <View style={styles.container}>
-        <DropDownList
-        testID={'DropListUse1'}
-        items={items}
-        itemShowMax={itemShowMax}
-        itemHeightSize={itemHeightSize}
-        lineStroke={lineStroke}
-        active={active}
-      />
+        <TextInput
+          style={styles.input}
+          onChangeText={(text) => this.setState({text: text})}
+          value={this.state.text}
+        />
+        <QRCode
+          value={this.state.text}
+          size={200}
+          bgColor='purple'
+          fgColor='white'/>
       </View>
     );
   }
@@ -29,8 +33,22 @@ export default class App extends Component<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
+    flex: 1,
+    backgroundColor: 'white',
     alignItems: 'center',
-    backgroundColor: '#F9FCFF',
+    justifyContent: 'center'
   },
+
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    margin: 10,
+    borderRadius: 5,
+    padding: 5,
+  }
 });
+
+AppRegistry.registerComponent('HelloWorld', () => App);
+
+module.exports = App;
